@@ -5,8 +5,11 @@ In future i plan to add boost library and more complicated compression/encryptio
 
 currently existing commands: 
 help                         --- lists commands
+
 ECHuffman [-e][-d] <file>    --- compress[-e] or decompress[-d] <file> using Huffman encoding
+
 ECCaesar [-e][-d] <file>     --- encrypt[-e] or decrypt[-d] <file> using Caesar cipher
+
 exit                         --- exits program
 
 
