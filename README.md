@@ -3,7 +3,9 @@ Simple console aplication that can compress and encrypt files.
 
 In future i plan to add boost library and more complicated compression/encryption algorithms.
 
-currently existing commands: 
+currently existing commands:
+
+ 
 help                         --- lists commands
 
 ECHuffman [-e][-d] <file>    --- compress[-e] or decompress[-d] <file> using Huffman encoding
