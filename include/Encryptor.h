@@ -7,8 +7,8 @@ class Encryptor
     public:
         Encryptor();
         virtual ~Encryptor();
-        virtual std::string encryptLine(std::string line) = 0;
-        virtual std::string decryptLine(std::string line) = 0;
+        virtual void encryptLine(char* buffer, int bufferSize) = 0;
+        virtual void decryptLine(char* buffer, int bufferSize) = 0;
         void encryptFile(std::string fileName);
         void decryptFile(std::string fileName);
 

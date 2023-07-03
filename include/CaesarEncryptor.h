@@ -9,13 +9,13 @@ class CaesarEncryptor : public Encryptor
     public:
         CaesarEncryptor();
         virtual ~CaesarEncryptor();
-        std::string encryptLine(std::string line) override;
-        std::string decryptLine(std::string line) override;
-        std::string encryptLine(std::string line, int tmpModifier);
-        std::string decryptLine(std::string line, int tmpModifier);
+        void encryptLine(char* buffer, int bufferSize) override;
+        void decryptLine(char* buffer, int bufferSize) override;
+        void encryptLine(char* buffer, int bufferSize, int tmpModifier);
+        void decryptLine(char* buffer, int bufferSize, int tmpModifier);
         void setDefaultModifier(int _mod);
     private:
-        int mod;
+        int mod=3;
 };
 
 #endif // CAESARENCRYPTOR_H

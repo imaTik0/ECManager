@@ -13,7 +13,6 @@ Huffman::~Huffman()
 
 void Huffman::buildEncodings(Node *node, std::string code)
 {
-    std::cout<<"Punkt kontrolny buildEncodings()";
     if (node == nullptr)
     {
         return;
@@ -33,7 +32,6 @@ Huffman::Node* Huffman::buildTree(std::vector<Node*> &nodes)
     {
         return a->frequency > b->frequency;
     };
-    std::cout<<"Punkt kontrolny buildTree(nodes)1 ";
     std::priority_queue<Node*, std::vector<Node*>, decltype(comparator) > nodeQueue(comparator, nodes);
     while (nodeQueue.size() > 1)
     {
@@ -46,7 +44,6 @@ Huffman::Node* Huffman::buildTree(std::vector<Node*> &nodes)
         parent->right = right;
         nodeQueue.push(parent);
     }
-    std::cout<<"Punkt kontrolny buildTree(nodes) 2";
     return nodeQueue.top();
 }
 
@@ -75,7 +72,6 @@ void Huffman::buildTree()
     {
         nodes.push_back(new Node(pair.first, pair.second));
     }
-    std::cout<<"Punkt kontrolny buildTree()";
     root = buildTree(nodes);
     buildEncodings(root, "");
 }
@@ -146,21 +142,30 @@ void Huffman::compressFile(std::string fileName)
     input.open(fileName, std::ios::binary);
     char buffer[1024*1024];
     std::string tmp;
+    if(!input.is_open())
+    {
+        std::cerr << "Error, file cannot be opened" << std::endl;
+        return;
+    }
     while (!input.eof())
     {
-        std::cout<<"dsa"<<std::endl;
         input.read(buffer,sizeof(buffer));
         buildFrequencyTable(buffer,input.gcount());
     }
     buildTree();
-    std::cout<<"punkt kontrolny"<<std::endl;
     input.close();
     input.open(fileName,std::ios::binary);
     output.open(fileName+'.'+extension, std::ios::binary);
     saveHuffmanTree(root,output);
+    if(!input.is_open())
+    {
+        frequencyTable.clear();
+        encodings.clear();
+        destroyTree(root);
+        return;
+    }
     while (!input.eof())
     {
-        std::cout<<"bsaa"<<std::endl;
         input.read(buffer,sizeof(buffer));
         writeBits(output,encode(buffer,input.gcount()));
     }
@@ -176,7 +181,7 @@ void Huffman::decompressFile(std::string fileName)
     std::string tmp;
     if (fileName.substr(fileName.find_last_of(".") + 1) != extension)
     {
-        std::cout << "Niepoprawny rodzaj pliku!" << std::endl;
+        std::cerr << "Error, file cannot be opened" << std::endl;
         std::cout<<fileName.substr(fileName.find_last_of(".") + 1)<<std::endl;
     }
     else

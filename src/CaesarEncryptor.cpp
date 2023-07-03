@@ -14,32 +14,28 @@ void CaesarEncryptor::setDefaultModifier(int _mod)
     mod = _mod;
 }
 
-std::string CaesarEncryptor::encryptLine(std::string line, int tmpModifier)
+void CaesarEncryptor::encryptLine(char* buffer, int bufferSize, int tmpModifier)
 {
-    for (int i = 0; i < line.length(); i++)
+    for (int i = 0; i < bufferSize; i++)
     {
-        line[i] += tmpModifier;
+        buffer[i] += tmpModifier;
     }
-
-    return line;
 }
 
-std::string CaesarEncryptor::decryptLine(std::string line, int tmpModifier)
+void CaesarEncryptor::decryptLine(char* buffer, int bufferSize, int tmpModifier)
 {
-    for (int i = 0; i < line.length(); i++)
+    for (int i = 0; i < bufferSize; i++)
     {
-        line[i] -= tmpModifier;
+        buffer[i] -= tmpModifier;
     }
-
-    return line;
 }
 
-std::string CaesarEncryptor::encryptLine(std::string line)
+void CaesarEncryptor::encryptLine(char* buffer, int bufferSize)
 {
-    return encryptLine(line, mod);
+    return encryptLine(buffer,bufferSize, mod);
 }
 
-std::string CaesarEncryptor::decryptLine(std::string line)
+void CaesarEncryptor::decryptLine(char* buffer, int bufferSize)
 {
-    return decryptLine(line, mod);
+    return decryptLine(buffer,bufferSize, mod);
 }
